@@ -5,7 +5,7 @@
  * Date: 2017/1/5
  * Time: 上午9:22
  */
-namespace app\assets;
+namespace ga\websocket;
 use yii\web\AssetBundle;
 
 class WebsocketAsset extends AssetBundle{
