@@ -2,7 +2,7 @@
   "name": "ga/websocket",
   "description": "yii2-websoket component depend on the WorkerMan",
   "license": "null",
-  "keywords": ["yii2", "resque", "ga","yii2-resque"],
+  "keywords": ["yii2", "websocket", "ga","yii2-websocket"],
   "authors": [
     {
       "name": "liuzexin",
