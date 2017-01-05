@@ -1,0 +1,21 @@
+{
+  "name": "ga/websocket",
+  "description": "yii2-websoket component depend on the WorkerMan",
+  "license": "null",
+  "keywords": ["yii2", "resque", "ga","yii2-resque"],
+  "authors": [
+    {
+      "name": "liuzexin",
+      "email": "liuzexin_top@163.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "wokerman/wokerman": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "ga\\resque\\": ""
+    }
+  }
+}
