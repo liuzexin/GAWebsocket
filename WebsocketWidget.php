@@ -11,20 +11,31 @@ use app\assets\WebsocketAsset;
 
 class WebsocketWidget extends Widget{
 
+    public $listId = 'show-list';
+    public $inputId = 'input-area';
+
+    private $parentId = 'ga-dialog';
     public function run()
     {
         $this->css();
         $this->js();
-        return $this->registerWidget('dialog', 'ga-dialog');
+        echo $this->renderFile( '@vendor/ga/websocket/asset/dialog.php',[
+            'id' => $this->id,
+            'listId' => $this->listId,
+            'inputId' => $this->inputId,
+            'parentId' => $this->parentId
+        ]);
+        return $this->registerWidget('dialog', $this->parentId);
     }
 
     public function js(){
         $js = <<<JS
-        $(function(){
+
             function appendLi(className, value){
-                $('#show-list').append('<li class="'+ className +'">'+ value +'</li>');
+                $('#{$this->listId}').append('<li class="'+ className +'">'+ value +'</li>');
             }
             var mySocket = new WebSocket('ws://127.0.0.1:2346');
+            jQuery('#{$this->parentId}').on('dialogclose', function(){mySocket.close();});
             mySocket.onopen = function (openEvent) {
 
             };
@@ -41,7 +52,7 @@ class WebsocketWidget extends Widget{
 
 
 
-            $('#input-area')[0].addEventListener('keydown',function(e){
+            $('#{$this->inputId}')[0].addEventListener('keydown',function(e){
                 if(e.keyCode!=13)
                 return;
                 if(this.value == '' || this.value.length > 50){
@@ -52,23 +63,17 @@ class WebsocketWidget extends Widget{
                 }
 
 
-                $('#show-list')[0].scrollTop = $('#show-list')[0].scrollHeight;
+                $('#{$this->listId}')[0].scrollTop = $('#{$this->listId}')[0].scrollHeight;
                 appendLi('dialog-self',this.value);
                 mySocket.send(this.value);
                 this.value = '';
             });
-            $('#ga-dialog').dialog({
-                'onClose':function(){
-                    mySocket.close();
-                }
-            })
-        });
 JS;
         $this->getView()->registerJs($js);
     }
 
     public function css(){
-        $this->getView()->registerCssFile('@vendor/websocket/css/websocket-dialog.css');
+        $this->getView()->registerCssFile('@web/css/websocket-dialog.css');
     }
 
     protected function registerWidget($name, $id = null)
