@@ -40,7 +40,7 @@ class WebsocketWidget extends Widget{
             var mySocket = new WebSocket('ws://{$this->ip}:{$this->port}');
             jQuery('#{$this->parentId}').on('dialogclose', function(){mySocket.close();});
             mySocket.onopen = function (openEvent) {
-
+                $('.ui-dialog-title').html('对话中');
             };
 
             mySocket.onmessage = function (messageEvent) {
@@ -48,9 +48,11 @@ class WebsocketWidget extends Widget{
             };
 
             mySocket.onerror = function (errorEvent) {
+                $('.ui-dialog-title').html('离线');
             };
 
             mySocket.onclose = function (closeEvent) {
+                $('.ui-dialog-title').html('离线');
             };
 
 
