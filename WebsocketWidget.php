@@ -15,6 +15,9 @@ class WebsocketWidget extends Widget{
     public $inputId = 'input-area';
 
     private $parentId = 'ga-dialog';
+
+    public $ip = '127.0.0.1';
+    public $port = '2346';
     public function run()
     {
         $this->css();
@@ -34,7 +37,7 @@ class WebsocketWidget extends Widget{
             function appendLi(className, value){
                 $('#{$this->listId}').append('<li class="'+ className +'">'+ value +'</li>');
             }
-            var mySocket = new WebSocket('ws://127.0.0.1:2346');
+            var mySocket = new WebSocket('ws://{$this->ip}:{$this->port}');
             jQuery('#{$this->parentId}').on('dialogclose', function(){mySocket.close();});
             mySocket.onopen = function (openEvent) {
 
@@ -73,7 +76,7 @@ JS;
     }
 
     public function css(){
-        $this->getView()->registerCssFile('@web/css/websocket-dialog.css');
+        $this->getView()->registerCssFile('@vendor/asset/websocket-dialog.css');
     }
 
     protected function registerWidget($name, $id = null)
